@@ -1,3 +1,6 @@
+library(dplyr)
+library(plyr)
+
 #Import Data
 raw <- read.csv(file='Rat_Sightings.csv')
 
@@ -14,4 +17,17 @@ unique(raw[c("City")]) #151439 Unique Cities
 #We also have very specific location data - would be useful to map
 
 #Aggregate Data and get some idea of distributions
+#Let's restructure real quick
+raw2 <- raw[c("ï..Unique.Key","Borough")]
+str(raw2)
+
+#Look at count of Rodent Sightings by Borough
+count(raw2, "Borough")
+
+#Let's drop the lines with empty and unspecified boroughs
+raw2 <- raw2[!raw2$Borough=="",]
+raw2 <- raw2[!raw2$Borough=="Unspecified",]
+count(raw2, "Borough")
+
+
 
